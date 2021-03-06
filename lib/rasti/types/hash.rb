@@ -34,7 +34,7 @@ module Rasti
           begin
             result[key_type.cast k] = value_type.cast v
           rescue => error
-            errors[k] = [error.message]
+            errors[k] = error.message
           end
         end
 
