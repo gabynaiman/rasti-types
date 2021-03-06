@@ -14,7 +14,7 @@ module Rasti
 
       def transform!(value)
         transform value
-      rescue MultiCastError => ex
+      rescue CompoundError => ex
         raise ex
       rescue
         raise CastError.new self, value

@@ -27,11 +27,11 @@ describe Rasti::Types::Array do
 
       error = proc { Rasti::Types::Array[Rasti::Types::Integer].cast(array) }.must_raise Rasti::Types::MultiCastError
 
-      error.errors.must_equal 3 => "Invalid cast: 'a' -> Rasti::Types::Integer",
-                              5 => "Invalid cast: 'c' -> Rasti::Types::Integer",
-                              7 => "Invalid cast: nil -> Rasti::Types::Integer"
+      error.errors.must_equal 3 => ["Invalid cast: 'a' -> Rasti::Types::Integer"],
+                              5 => ["Invalid cast: 'c' -> Rasti::Types::Integer"],
+                              7 => ["Invalid cast: nil -> Rasti::Types::Integer"]
 
-      error.message.must_equal "Cast errors:\n- 3: Invalid cast: 'a' -> Rasti::Types::Integer\n- 5: Invalid cast: 'c' -> Rasti::Types::Integer\n- 7: Invalid cast: nil -> Rasti::Types::Integer"
+      error.message.must_equal "Cast errors:\n- 3: [\"Invalid cast: 'a' -> Rasti::Types::Integer\"]\n- 5: [\"Invalid cast: 'c' -> Rasti::Types::Integer\"]\n- 7: [\"Invalid cast: nil -> Rasti::Types::Integer\"]"
     end
 
     it 'Array of models' do
@@ -44,10 +44,10 @@ describe Rasti::Types::Array do
 
       error = proc { Rasti::Types::Array[Rasti::Types::Model[Point]].cast(array) }.must_raise Rasti::Types::MultiCastError
 
-      error.errors.must_equal 2 => 'Invalid cast: {:y=>2} -> Rasti::Types::Model[Point]',
-                              3 => 'Invalid cast: {:x=>1} -> Rasti::Types::Model[Point]'
+      error.errors.must_equal 2 => ['Invalid cast: {:y=>2} -> Rasti::Types::Model[Point]'],
+                              3 => ['Invalid cast: {:x=>1} -> Rasti::Types::Model[Point]']
 
-      error.message.must_equal "Cast errors:\n- 2: Invalid cast: {:y=>2} -> Rasti::Types::Model[Point]\n- 3: Invalid cast: {:x=>1} -> Rasti::Types::Model[Point]"
+      error.message.must_equal "Cast errors:\n- 2: [\"Invalid cast: {:y=>2} -> Rasti::Types::Model[Point]\"]\n- 3: [\"Invalid cast: {:x=>1} -> Rasti::Types::Model[Point]\"]"
     end
 
   end

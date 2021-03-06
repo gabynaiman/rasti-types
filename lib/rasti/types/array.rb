@@ -34,7 +34,7 @@ module Rasti
           begin
             result << type.cast(e)
           rescue => error
-            errors[index] = error.message
+            errors[index] = [error.message]
           end
         end
 

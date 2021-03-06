@@ -25,10 +25,10 @@ describe Rasti::Types::Hash do
 
     error = proc { Rasti::Types::Hash[Rasti::Types::Integer, Rasti::Types::Integer].cast(value) }.must_raise Rasti::Types::MultiCastError
 
-    error.errors.must_equal true => 'Invalid cast: true -> Rasti::Types::Integer',
-                            2 => 'Invalid cast: false -> Rasti::Types::Integer'
+    error.errors.must_equal true => ['Invalid cast: true -> Rasti::Types::Integer'],
+                            2 => ['Invalid cast: false -> Rasti::Types::Integer']
 
-    error.message.must_equal "Cast errors:\n- true: Invalid cast: true -> Rasti::Types::Integer\n- 2: Invalid cast: false -> Rasti::Types::Integer"
+    error.message.must_equal "Cast errors:\n- true: [\"Invalid cast: true -> Rasti::Types::Integer\"]\n- 2: [\"Invalid cast: false -> Rasti::Types::Integer\"]"
   end
 
 end

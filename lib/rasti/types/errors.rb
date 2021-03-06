@@ -8,10 +8,8 @@ module Rasti
       def initialize(type, value)
         @type = type
         @value = value
-      end
 
-      def message
-        "Invalid cast: #{display_value} -> #{type}"
+        super "Invalid cast: #{display_value} -> #{type}"
       end
 
       private
@@ -22,24 +20,41 @@ module Rasti
 
     end
 
-    class MultiCastError < StandardError
+    class CompoundError < StandardError
 
-      attr_reader :type, :value, :errors
+      attr_reader :errors
+
+      def initialize(errors)
+        @errors = errors
+        super "#{message_title}\n#{message_lines}"
+      end
+
+      private
+
+      def message_title
+        'Errors:'
+      end
+
+      def message_lines
+        errors.map { |k,v| "- #{k}: #{v}" }.join("\n")
+      end
+
+    end
+
+    class MultiCastError < CompoundError
+
+      attr_reader :type, :value
 
       def initialize(type, value, errors)
         @type = type
         @value = value
-        @errors = errors
+        super errors
       end
 
-      def message
-        lines = ['Cast errors:']
+      private
 
-        errors.each do |key, value|
-          lines << "- #{key}: #{value}"
-        end
-
-        lines.join("\n")
+      def message_title
+        'Cast errors:'
       end
 
     end
