@@ -33,6 +33,12 @@ module Rasti
         value.each do |k,v|
           begin
             result[key_type.cast k] = value_type.cast v
+
+          rescue CompoundError => ex
+            ex.errors.each do |key, messages|
+              errors["#{k}.#{key}"] = messages
+            end
+
           rescue => error
             errors[k] = [error.message]
           end

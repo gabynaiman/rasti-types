@@ -33,8 +33,14 @@ module Rasti
           index = i + 1
           begin
             result << type.cast(e)
-          rescue => error
-            errors[index] = [error.message]
+
+          rescue CompoundError => ex
+            ex.errors.each do |key, messages|
+              errors["#{index}.#{key}"] = messages
+            end
+
+          rescue => ex
+            errors[index] = [ex.message]
           end
         end
 

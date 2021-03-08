@@ -17,8 +17,21 @@ class Point
   attr_reader :x, :y
 
   def initialize(attributes={})
-    @x = attributes.fetch(:x)
-    @y = attributes.fetch(:y)
+    errors = {}
+
+    if attributes.key? :x
+      @x = attributes[:x]
+    else
+      errors[:x] = ['not present']
+    end
+
+    if attributes.key? :y
+      @y = attributes[:y]
+    else
+      errors[:y] = ['not present']
+    end
+
+    raise Rasti::Types::CompoundError, errors if errors.any?
   end
 
 end

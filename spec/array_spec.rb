@@ -44,10 +44,10 @@ describe Rasti::Types::Array do
 
       error = proc { Rasti::Types::Array[Rasti::Types::Model[Point]].cast(array) }.must_raise Rasti::Types::MultiCastError
 
-      error.errors.must_equal 2 => ['Invalid cast: {:y=>2} -> Rasti::Types::Model[Point]'],
-                              3 => ['Invalid cast: {:x=>1} -> Rasti::Types::Model[Point]']
+      error.errors.must_equal '2.x' => ['not present'],
+                              '3.y' => ['not present']
 
-      error.message.must_equal "Cast errors:\n- 2: [\"Invalid cast: {:y=>2} -> Rasti::Types::Model[Point]\"]\n- 3: [\"Invalid cast: {:x=>1} -> Rasti::Types::Model[Point]\"]"
+      error.message.must_equal "Cast errors:\n- 2.x: [\"not present\"]\n- 3.y: [\"not present\"]"
     end
 
   end
