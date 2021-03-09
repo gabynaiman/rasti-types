@@ -1,7 +1,10 @@
 module Rasti
   module Types
 
-    class CastError < StandardError
+    class Error < StandardError
+    end
+
+    class CastError < Error
 
       attr_reader :type, :value
 
@@ -20,7 +23,7 @@ module Rasti
 
     end
 
-    class CompoundError < StandardError
+    class CompoundError < Error
 
       attr_reader :errors
 
