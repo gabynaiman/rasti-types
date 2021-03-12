@@ -1,4 +1,6 @@
 require 'multi_require'
+require 'inflecto'
+require 'rasti-enum'
 
 module Rasti
   module Types

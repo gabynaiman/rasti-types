@@ -35,3 +35,19 @@ class Point
   end
 
 end
+
+
+module Colors
+
+  extend Rasti::Enum
+
+  class Red < Rasti::Enum::Value
+  end
+
+  class Green < Rasti::Enum::Value
+  end
+
+  class Blue < Rasti::Enum::Value
+  end
+
+end

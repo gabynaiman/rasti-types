@@ -1,35 +1,37 @@
 module Rasti
   module Types
-    class Enum
+    class TypedEnum
 
       include Castable
 
-      attr_reader :values
+      def self.[](enum)
+        new enum
+      end
 
-      def self.[](*values)
-        new values
+      def initialize(enum)
+        @enum = enum
+        define_getters
+      end
+
+      def values
+        enum.values
       end
 
       def to_s
-        "#{self.class}[#{values.map(&:inspect).join(', ')}]"
+        "#{self.class}[#{enum}]"
       end
       alias_method :inspect, :to_s
 
       private
 
-      def initialize(values)
-        @values = values.map(&:to_s)
-        define_getters
-      end
+      attr_reader :enum
 
       def valid?(value)
-        values.include? String.cast(value)
-      rescue
-        false
+        enum.include? value
       end
 
       def transform(value)
-        String.cast value
+        enum[value]
       end
 
       def define_getters

@@ -17,12 +17,13 @@ describe Rasti::Types::Enum do
     end
   end
 
-  it 'Constants' do
+  it 'Values' do
     enum = Rasti::Types::Enum[:first_value, 'SecondValue', 'THIRD_VALUE']
 
     enum.first_value.must_equal 'first_value'
     enum.second_value.must_equal 'SecondValue'
     enum.third_value.must_equal 'THIRD_VALUE'
+    enum.values.must_equal ['first_value', 'SecondValue', 'THIRD_VALUE']
   end
 
 end
