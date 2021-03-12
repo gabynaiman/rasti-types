@@ -1,5 +1,6 @@
 require 'multi_require'
 require 'inflecto'
+require 'time'
 require 'rasti-enum'
 
 module Rasti
