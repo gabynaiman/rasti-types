@@ -22,11 +22,11 @@ module Rasti
       end
 
       def valid?(value)
-        value.is_a? ::Hash
+        value.is_a?(::Hash) || value.is_a?(model)
       end
 
       def transform(value)
-        model.new value
+        value.is_a?(model) ? value : model.new(value)
       end
 
     end

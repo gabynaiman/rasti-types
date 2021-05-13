@@ -2,11 +2,17 @@ require 'minitest_helper'
 
 describe Rasti::Types::Model do
 
-  it 'Class' do
+  it 'Hash' do
     result = Rasti::Types::Model[Point].cast x: 1, y: 2
     result.must_be_instance_of Point
     result.x.must_equal 1
     result.y.must_equal 2
+  end
+
+  it 'Model' do
+    model = Point.new x: 3, y: 4
+    result = Rasti::Types::Model[Point].cast model
+    result.must_equal model
   end
 
   it 'Hash -> CastError' do
