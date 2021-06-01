@@ -28,7 +28,7 @@ module Rasti
 
       def transform(value)
         MultiCaster.cast!(self, value) do |multi_caster|
-          value.each_with_object({}) do |(k,v),hash|
+          value.each_with_object({}) do |(k,v), hash|
             casted_key = multi_caster.cast type: key_type,
                                            value: k,
                                            error_key: k

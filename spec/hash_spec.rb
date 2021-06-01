@@ -2,6 +2,14 @@ require 'minitest_helper'
 
 describe Rasti::Types::Hash do
 
+  it 'nil -> nil' do
+    Rasti::Types::Hash[Rasti::Types::Integer, Rasti::Types::String].cast(nil).must_equal nil
+  end
+
+  it '{nil => nil} -> {nil => nil}' do
+    Rasti::Types::Hash[Rasti::Types::Integer, Rasti::Types::String].cast(nil => nil).must_equal nil => nil
+  end
+
   it "{'a' => '123'} -> {a: 123}" do
     Rasti::Types::Hash[Rasti::Types::Symbol, Rasti::Types::Integer].cast('a' => '123').must_equal a: 123
   end
@@ -10,7 +18,7 @@ describe Rasti::Types::Hash do
     Rasti::Types::Hash[Rasti::Types::Integer, Rasti::Types::String].cast('1' => :abc).must_equal 1 => 'abc'
   end
 
-  [nil, 1, 'text', :symbol, Object.new].each do |value|
+  [1, 'text', :symbol, Object.new].each do |value|
     it "#{value.inspect} -> CastError" do
       error = proc { Rasti::Types::Hash[Rasti::Types::Symbol, Rasti::Types::Integer].cast(value) }.must_raise Rasti::Types::CastError
       error.message.must_equal "Invalid cast: #{as_string(value)} -> Rasti::Types::Hash[Rasti::Types::Symbol, Rasti::Types::Integer]"

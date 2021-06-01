@@ -21,7 +21,7 @@ module Rasti
         attr_reader :format
 
         def valid?(value)
-          !value.nil? && value.respond_to?(:to_s) && valid_format?(value)
+          value.respond_to?(:to_s) && valid_format?(value)
         end
 
         def valid_format?(value)

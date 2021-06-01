@@ -2,6 +2,10 @@ require 'minitest_helper'
 
 describe Rasti::Types::Model do
 
+  it 'nil -> nil' do
+    Rasti::Types::Model[Point].cast(nil).must_equal nil
+  end
+
   it 'Hash' do
     result = Rasti::Types::Model[Point].cast x: 1, y: 2
     result.must_be_instance_of Point
@@ -20,7 +24,7 @@ describe Rasti::Types::Model do
     error.message.must_equal "Errors:\n- x: [\"not present\"]\n- y: [\"not present\"]"
   end
 
-  [nil, 'text', :symbol, 1, [1,2], Object.new].each do |value|
+  ['text', :symbol, 1, [1,2], Object.new].each do |value|
     it "#{value.inspect} -> CastError" do
       error = proc { Rasti::Types::Model[Point].cast(value) }.must_raise Rasti::Types::CastError
       error.message.must_equal "Invalid cast: #{as_string(value)} -> #{Rasti::Types::Model[Point]}"

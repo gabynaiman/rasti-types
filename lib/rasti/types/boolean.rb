@@ -27,11 +27,11 @@ module Rasti
         end
 
         def true_string?(value)
-          !!value.match(TRUE_FORMAT)
+          !value.match(TRUE_FORMAT).nil?
         end
 
         def false_string?(value)
-          !!value.match(FALSE_FORMAT)
+          !value.match(FALSE_FORMAT).nil?
         end
 
       end

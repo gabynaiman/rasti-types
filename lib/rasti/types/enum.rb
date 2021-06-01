@@ -24,8 +24,6 @@ module Rasti
 
       def valid?(value)
         values.include? String.cast(value)
-      rescue
-        false
       end
 
       def transform(value)

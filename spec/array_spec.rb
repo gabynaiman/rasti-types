@@ -3,7 +3,15 @@ require 'minitest_helper'
 describe Rasti::Types::Array do
 
   VALID_ARRAY = [1, '2', Time.now]
-  INVALID_ARRAY = [nil, 1, 'text', :symbol, {a: 1, b: 2}, Object.new]
+  INVALID_ARRAY = [1, 'text', :symbol, {a: 1, b: 2}, Object.new]
+
+  it 'nil -> nil' do
+    Rasti::Types::Array[Rasti::Types::String].cast(nil).must_equal nil
+  end
+
+  it '[nil] -> [nil]' do
+    Rasti::Types::Array[Rasti::Types::String].cast([nil]).must_equal [nil]
+  end
 
   it "#{VALID_ARRAY.inspect} -> #{VALID_ARRAY.map(&:to_i)}" do
     Rasti::Types::Array[Rasti::Types::Integer].cast(VALID_ARRAY).must_equal VALID_ARRAY.map(&:to_i)
@@ -23,15 +31,14 @@ describe Rasti::Types::Array do
   describe 'Multi cast errors' do
 
     it 'Array of integers' do
-      array = [1, 2 , 'a', 3, 'c', 4, nil]
+      array = [1, 2 , 'a', 3, 'c', 4]
 
       error = proc { Rasti::Types::Array[Rasti::Types::Integer].cast(array) }.must_raise Rasti::Types::MultiCastError
 
       error.errors.must_equal 3 => ["Invalid cast: 'a' -> Rasti::Types::Integer"],
-                              5 => ["Invalid cast: 'c' -> Rasti::Types::Integer"],
-                              7 => ["Invalid cast: nil -> Rasti::Types::Integer"]
+                              5 => ["Invalid cast: 'c' -> Rasti::Types::Integer"]
 
-      error.message.must_equal "Cast errors:\n- 3: [\"Invalid cast: 'a' -> Rasti::Types::Integer\"]\n- 5: [\"Invalid cast: 'c' -> Rasti::Types::Integer\"]\n- 7: [\"Invalid cast: nil -> Rasti::Types::Integer\"]"
+      error.message.must_equal "Cast errors:\n- 3: [\"Invalid cast: 'a' -> Rasti::Types::Integer\"]\n- 5: [\"Invalid cast: 'c' -> Rasti::Types::Integer\"]"
     end
 
     it 'Array of models' do

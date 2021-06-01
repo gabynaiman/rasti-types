@@ -3,6 +3,8 @@ module Rasti
     module Castable
 
       def cast(value)
+        return nil if value.nil?
+
         if valid? value
           transform! value
         else

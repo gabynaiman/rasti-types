@@ -10,7 +10,7 @@ module Rasti
         private
 
         def valid?(value)
-          !value.nil? && (valid_string?(value) || transformable?(value))
+          valid_string?(value) || transformable?(value)
         end
 
         def transform(value)

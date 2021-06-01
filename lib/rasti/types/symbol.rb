@@ -8,7 +8,7 @@ module Rasti
         private
 
         def valid?(value)
-          !value.nil? && (value.respond_to?(:to_sym) || value.respond_to?(:to_s))
+          value.respond_to?(:to_sym) || value.respond_to?(:to_s)
         end
 
         def transform(value)
