@@ -27,26 +27,19 @@ module Rasti
       end
 
       def transform(value)
-        result = {}
-        errors = {}
+        MultiCaster.cast!(self, value) do |multi_caster|
+          value.each_with_object({}) do |(k,v),hash|
+            casted_key = multi_caster.cast type: key_type,
+                                           value: k,
+                                           error_key: k
 
-        value.each do |k,v|
-          begin
-            result[key_type.cast k] = value_type.cast v
+            casted_value = multi_caster.cast type: value_type,
+                                             value: v,
+                                             error_key: k
 
-          rescue CompoundError => ex
-            ex.errors.each do |key, messages|
-              errors["#{k}.#{key}"] = messages
-            end
-
-          rescue => error
-            errors[k] = [error.message]
+            hash[casted_key] = casted_value
           end
         end
-
-        raise MultiCastError.new(self, value, errors) unless errors.empty?
-
-        result
       end
 
     end

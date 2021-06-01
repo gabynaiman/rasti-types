@@ -26,27 +26,13 @@ module Rasti
       end
 
       def transform(value)
-        result = []
-        errors = {}
-
-        value.each_with_index do |e,i|
-          index = i + 1
-          begin
-            result << type.cast(e)
-
-          rescue CompoundError => ex
-            ex.errors.each do |key, messages|
-              errors["#{index}.#{key}"] = messages
-            end
-
-          rescue => ex
-            errors[index] = [ex.message]
+        MultiCaster.cast!(self, value) do |multi_caster|
+          value.map.with_index do |e,i|
+            multi_caster.cast type: type,
+                              value: e,
+                              error_key: i+1
           end
         end
-
-        raise MultiCastError.new(self, value, errors) unless errors.empty?
-
-        result
       end
 
     end
