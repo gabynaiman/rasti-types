@@ -1,7 +1,7 @@
 # Rasti::Types
 
 [![Gem Version](https://badge.fury.io/rb/rasti-types.svg)](https://rubygems.org/gems/rasti-types)
-[![Build Status](https://travis-ci.org/gabynaiman/rasti-types.svg?branch=master)](https://travis-ci.org/gabynaiman/rasti-types)
+[![Build Status](https://travis-ci.com/gabynaiman/rasti-types.svg?branch=master)](https://travis-ci.com/gabynaiman/rasti-types)
 [![Coverage Status](https://coveralls.io/repos/github/gabynaiman/rasti-types/badge.svg?branch=master)](https://coveralls.io/github/gabynaiman/rasti-types?branch=master)
 [![Code Climate](https://codeclimate.com/github/gabynaiman/rasti-types.svg)](https://codeclimate.com/github/gabynaiman/rasti-types)
 
