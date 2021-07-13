@@ -12,7 +12,7 @@ describe Rasti::Types::UUID do
     end
   end
 
-  ['text', :symbol, '999'.to_sym, [1,2], {a: 1, b: 2}, Object.new, 5, 'f09b7716-81a9-11e6-a549-bb16502', 'f09b7716-11e6-a549-bb8f16502', '-84a9-11e6-a549-bb8f16502', 'f09b7716-81a9-11e6-a549-bh16502'].each do |value|
+  ['text', :symbol, '999'.to_sym, [1,2], {a: 1, b: 2}, Object.new, 5, 'f09b7716-81a9-11e6-a549-bb16502', 'f09b7716-11e6-a549-bb8f16502', '-84a9-11e6-a549-bb8f16502', 'f09b7716-81a9-11e6-a549-bh16502', 'bab8292a-0f49-4094-8d0a-e1e0f57953e2e1e0f57953e2'].each do |value|
     it "#{value.inspect} -> CastError" do
       error = proc { Rasti::Types::UUID.cast(value) }.must_raise Rasti::Types::CastError
       error.message.must_equal "Invalid cast: #{as_string(value)} -> Rasti::Types::UUID"
